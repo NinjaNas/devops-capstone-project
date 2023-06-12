@@ -67,22 +67,18 @@ def list_accounts():
     This endpoint will list all Accounts
     """
     app.logger.info("Request to list Accounts")
-
     # use the Account.all() method to retrieve all accounts
     accounts = Account.all()
     # create a list of serialize() accounts
     account_list = [account.serialize() for account in accounts]
-    # log the number of accounts being returned in the list 
+    # log the number of accounts being returned in the list
     app.logger.info("Returning [%s] accounts", len(account_list))
     # return the list with a return code of status.HTTP_200_OK
-
     return jsonify(account_list), status.HTTP_200_OK
 
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
-
-# ... place you code here to READ an account ...
 @app.route("/accounts/<int:account_id>", methods=["GET"])
 def get_accounts(account_id):
     """
@@ -106,7 +102,7 @@ def update_accounts(account_id):
     """
     app.logger.info("Request to update an Account with id: %s", account_id)
     # use the Account.find() method to retrieve the account by the account_id
-    account = Account.find(account_id) 
+    account = Account.find(account_id)
     # abort() with a status.HTTP_404_NOT_FOUND if it cannot be found
     if not account:
         abort(status.HTTP_404_NOT_FOUND, f"Account with id [{account_id}] could not be found.")
@@ -116,8 +112,6 @@ def update_accounts(account_id):
     account.update()
     # return the serialize() version of the account with a return code of status.HTTP_200_OK
     return account.serialize(), status.HTTP_200_OK
-
-
 
 ######################################################################
 # DELETE AN ACCOUNT
@@ -136,12 +130,9 @@ def delete_accounts(account_id):
     # return and empty body ("") with a return code of status.HTTP_204_NO_CONTENT
     return "", status.HTTP_204_NO_CONTENT
 
-
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
 ######################################################################
-
-
 def check_content_type(media_type):
     """Checks that the media type is correct"""
     content_type = request.headers.get("Content-Type")
